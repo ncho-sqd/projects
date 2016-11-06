@@ -1,0 +1,10 @@
+Useful Data Sources
+First created 7/28/16
+
+1. Generally Useful Financial Time Series
+http://quant.stackexchange.com/questions/141/what-data-sources-are-available-online
+
+2. Historical Exchange Rate from Yahoo
+http://dimmys.blogspot.com/2014/01/how-to-get-todays-exchange-rate-and.html
+
+
