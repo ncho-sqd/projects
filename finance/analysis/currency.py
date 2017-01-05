@@ -2,7 +2,6 @@
 from yahoo_finance import Currency
 #import pandas.io.data as web
 from tabulate import tabulate
-import pandas as pd
 from datetime import datetime as dt
 
 start_dt = '2011-01-01'

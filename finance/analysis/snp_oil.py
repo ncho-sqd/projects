@@ -1,7 +1,7 @@
 from yahoo_finance import Share
 from pprint import pprint
 from tabulate import tabulate
-import pandas as pd
+#import pandas as pd
 from datetime import datetime as dt
 import statsmodels.formula.api as sm
 import matplotlib.pyplot as plt
