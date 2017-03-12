@@ -2,14 +2,16 @@
 cat("\014")
 rm(list = ls())
 
+#Load header file
+source("D:/git/header.R")
+
 #Install and load packages
 package_list=c("quantmod", "ggplot2", "Hmisc", "PerformanceAnalytics")
-sapply(package_list,require, character.only=T)
-
+sapply(package_list, install.packages)
+sapply(package_list, require, character.only=T)
 
 #Specify ticker groups
-market_tickers=c("^GSPC","^DJI","^KS11", "^RUT", "^VIX",
-                 "^FTSE","^GDAXI", "^FCHI","^N225")
+market_tickers=c("^GSPC","^DJI")
 etf_tickers=c("SCHX","VOO", "SCHB", "SCHZ", "SCHE")
 curr_tickers=c("DEXKOUS")
 
@@ -52,8 +54,7 @@ chart.RollingCorrelation(market_returns[,-1],
 dev.off()
 
 #Store market data
-str(ret)
-save(ret,file="D:/datasets/markets.xts")
+save(market_returns,file=paste0(dataroot,"/datasets/markets.xts"))
 
 kor<-cbind(KS11,DEXKOUS)
 cor(tail(kor,100),use="complete.obs")
