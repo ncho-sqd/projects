@@ -21,7 +21,7 @@ markets<-getSymbols(market_tickers)
 market_returns <- do.call(cbind,lapply(markets,function(x) OpCl(get(x))))
 names(market_returns)<-paste(markets,"_RET",sep="")
 
-etfs<-getSymbols(etf_tickers)
+etfs<-getSymbols(etf_tickers, from = "2007-09-01", to = "2017-03-18")
 etf_returns <- do.call(cbind,lapply(etfs,function(x) OpCl(get(x))))
 names(etf_returns)<-paste(etfs,"_RET",sep="")
 
