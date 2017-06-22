@@ -5,11 +5,6 @@ rm(list = ls())
 #Load header file
 source("D:/git/header.R")
 
-#Install and load packages
-package_list=c("quantmod", "ggplot2", "Hmisc", "PerformanceAnalytics")
-sapply(package_list, install.packages)
-sapply(package_list, require, character.only=T)
-
 #Specify ticker groups
 market_tickers=c("^GSPC","^DJI")
 etf_tickers=c("SCHX","VOO", "SCHB", "SCHZ", "SCHE")
@@ -17,7 +12,7 @@ curr_tickers=c("DEXKOUS")
 
 
 #Download OpCl return data
-markets<-getSymbols(market_tickers)
+markets<-getSymbols(market_tickers, from = '1960-01-01')
 market_returns <- do.call(cbind,lapply(markets,function(x) OpCl(get(x))))
 names(market_returns)<-paste(markets,"_RET",sep="")
 

@@ -5,13 +5,27 @@ source("D:/git/header.R")
 # import data
 load(paste0(dataroot,"/datasets/markets.xts"))
 
-# calculate consecutive increase/decrease days
-consec<-rle(sign(as.vector(market_returns[,'GSPC_RET'])))
-consec_days <- consec$lengths * consec$values
+# create consecutive increase variable
+analysis <- market_returns %>%
+  as.data.frame() %>% 
+  mutate_all(funs(sign=sign(.))) %>% 
+  mutate_at(vars(ends_with("sign")),funs(group = cumsum(c(F,diff(.)!=0)))) %>% 
+  mutate(date = index(market_returns)) %>% 
+  group_by(GSPC_RET_sign_group) %>% 
+  mutate(index = row_number() * GSPC_RET_sign)
 
-require(ggplot2)
-ggplot()
-  +geom_point(aes(x = seq(1,length(consec_days)), y = consec_days))
+# summmarize by year
+sum_by_year <- analysis %>% 
+  group_by(year=year(date), index) %>% 
+  summarise(ct_day = n()) %>% 
+  spread(index, ct_day)
 
+chart_data <- analysis %>% 
+  group_by(year=year(date), index) %>% 
+  summarise(ct_day = n())
 
-plot(consec_days[1200:length(consec_days)], type="l")
+# visualization
+ggplot(chart_data, aes(x=year, y=index, fill=ct_day)) +
+  geom_tile() +
+  scale_fill_continuous(low="#2171B5", high="red") +
+  theme_bw()
