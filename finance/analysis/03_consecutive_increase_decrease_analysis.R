@@ -69,3 +69,12 @@ rf.predict <- predict(rf.fit, analysis[analysis$date>='2016-01-01',])
 
 combine <- cbind(analysis$index[analysis$date>='2016-01-01'], rf.predict)
 mean(sign(combine[,1])==sign(combine[,2]))
+
+# scatter index with lags
+pairs(analysis[c('index', 'lag1', 'lag2', 'lag3', 'lag4', 'lag5')])
+
+# examine consecutive days return magnitude
+plot(analysis$index, analysis$GSPC_RET)
+
+# distribution of returns
+hist(analysis$GSPC_RET, breaks=500)
